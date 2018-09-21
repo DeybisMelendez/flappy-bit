@@ -1,0 +1,114 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://png/pajaro1.png" type="Texture" id=1]
+[ext_resource path="res://png/pajaro2.png" type="Texture" id=2]
+[ext_resource path="res://png/pajaro3.png" type="Texture" id=3]
+[ext_resource path="res://sfx/sfx_wing.wav" type="AudioStream" id=4]
+[ext_resource path="res://sfx/sfx_die.wav" type="AudioStream" id=5]
+[ext_resource path="res://sfx/sfx_hit.wav" type="AudioStream" id=6]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends RigidBody2D
+
+var vuelo = Vector2(0,-75) #valor del vuelo
+var golpeado = false
+
+func _ready():
+	pass
+
+func _integrate_forces(state):
+	if global.comienzaJuego: #Si la variable de Autoload es verdadero
+		if Input.is_action_just_pressed(\"ui_up\"):
+			set_linear_velocity(Vector2(0,0))
+			apply_impulse(Vector2(0,0),vuelo)
+			get_node(\"volar\").play()
+	if get_colliding_bodies().size() > 0 and !golpeado: #Cuando choca con algo
+		golpeado = true
+		get_node(\"chocar\").play()
+		get_node(\"vuelo\").stop() #detiene la animacion vuelo
+		global.comienzaJuego = false #el juego termina
+		global.terminaJuego = true
+		yield(get_node(\"chocar\"),\"finished\")
+		get_node(\"perder\").play()"
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 5, 4 )
+
+[sub_resource type="SpriteFrames" id=3]
+
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": false,
+"name": "parado",
+"speed": 5.0
+} ]
+
+[node name="RigidBody2D" type="RigidBody2D"]
+
+pause_mode = 2
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+mode = 0
+mass = 2.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 1
+contact_monitor = true
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, 0 )
+linear_damp = -1.0
+angular_velocity = 0.0
+angular_damp = -1.0
+script = SubResource( 1 )
+_sections_unfolded = [ "Angular", "Applied Forces", "Collision", "Linear", "Pause" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+
+shape = SubResource( 4 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="vuelo" type="AnimatedSprite" parent="." index="1"]
+
+frames = SubResource( 3 )
+animation = "default"
+playing = true
+_sections_unfolded = [ "Pause" ]
+
+[node name="volar" type="AudioStreamPlayer" parent="." index="2"]
+
+stream = ExtResource( 4 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="perder" type="AudioStreamPlayer" parent="." index="3"]
+
+stream = ExtResource( 5 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="chocar" type="AudioStreamPlayer" parent="." index="4"]
+
+stream = ExtResource( 6 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+

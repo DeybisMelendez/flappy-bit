@@ -1,0 +1,90 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://png/panel.png" type="Texture" id=1]
+[ext_resource path="res://png/start.png" type="Texture" id=2]
+[ext_resource path="res://png/game-over.png" type="Texture" id=3]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Sprite
+
+func _ready():
+	pass
+
+func _process(delta):
+	#Botones a mostrar, ocula y muestra el panel cuando lo requiere
+	if global.comienzaJuego:
+		hide()
+	else:
+		show()
+		if global.terminaJuego:
+			get_node(\"start\").hide()
+			get_node(\"gameOver\").show()
+		else:
+			get_node(\"gameOver\").hide()
+			get_node(\"start\").show()
+	if get_node(\"start\").pressed: #Comenzamos el juego
+		global.comienzaJuego = true
+	if get_node(\"gameOver\").pressed: #Al presionar Game Over se reinicia
+		global.terminaJuego = false
+		global.comienzaJuego = true
+		get_parent().get_tree().reload_current_scene()"
+
+[node name="panel" type="Sprite" index="0"]
+
+z_index = 10
+texture = ExtResource( 1 )
+script = SubResource( 1 )
+_sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform", "Visibility", "Z Index" ]
+
+[node name="start" type="Button" parent="." index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -20.0
+margin_top = -10.0
+margin_right = 21.0
+margin_bottom = 10.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+icon = ExtResource( 2 )
+flat = true
+align = 1
+
+[node name="gameOver" type="Button" parent="." index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -19.0
+margin_top = -11.0
+margin_right = 19.0
+margin_bottom = 10.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+icon = ExtResource( 3 )
+flat = true
+align = 1
+
+

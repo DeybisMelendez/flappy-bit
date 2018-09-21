@@ -1,0 +1,308 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://main.gd" type="Script" id=1]
+[ext_resource path="res://png/fondo-0001.png" type="Texture" id=2]
+[ext_resource path="res://png/fondo-0002.png" type="Texture" id=3]
+[ext_resource path="res://png/fondo-0003.png" type="Texture" id=4]
+[ext_resource path="res://png/fondo-0004.png" type="Texture" id=5]
+[ext_resource path="res://png/fondo-0005.png" type="Texture" id=6]
+[ext_resource path="res://png/fondo-0006.png" type="Texture" id=7]
+[ext_resource path="res://png/fondo-0007.png" type="Texture" id=8]
+[ext_resource path="res://png/nube1.png" type="Texture" id=9]
+[ext_resource path="res://png/nube2.png" type="Texture" id=10]
+[ext_resource path="res://png/piso.png" type="Texture" id=11]
+[ext_resource path="res://png/edif2.png" type="Texture" id=12]
+[ext_resource path="res://png/edif1.png" type="Texture" id=13]
+[ext_resource path="res://obj/panel.tscn" type="PackedScene" id=14]
+[ext_resource path="res://sfx/sfx_point.wav" type="AudioStream" id=15]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends ParallaxBackground
+
+var mov = Vector2(0,0) #Variable de movimiento del scroll
+var vel = 0.1 #velocidad general del scroll
+
+func _ready():
+	pass
+
+func _physics_process(delta):
+	if global.comienzaJuego:
+		#Con esto hacemos un auto scroll y se detiene cuando la variable global pasa a false
+		mov.x -= vel
+		set_scroll_offset(mov)
+#Nota: cada ParallaxLayer en el nodo background tiene
+#su propio valor de motion_scale para aumentar la velocidad de cada uno,
+#se puede cambiar desde el editor en cada nodo ParallaxLayer"
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 20, 4 )
+
+[sub_resource type="DynamicFontData" id=3]
+
+hinting = 2
+font_path = "res://ttf/Pixeled.ttf"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="DynamicFont" id=4]
+
+size = 5
+use_mipmaps = false
+use_filter = false
+font_data = SubResource( 3 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[node name="main" type="Node2D" index="0"]
+
+pause_mode = 2
+script = ExtResource( 1 )
+_sections_unfolded = [ "Pause", "Transform" ]
+
+[node name="background" type="ParallaxBackground" parent="." index="0"]
+
+pause_mode = 1
+editor/display_folded = true
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+scroll_offset = Vector2( 0, 0 )
+scroll_base_offset = Vector2( 0, 0 )
+scroll_base_scale = Vector2( 1, 1 )
+scroll_limit_begin = Vector2( 0, 0 )
+scroll_limit_end = Vector2( 0, 0 )
+scroll_ignore_camera_zoom = true
+script = SubResource( 1 )
+_sections_unfolded = [ "Pause", "Scroll" ]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="background" index="0"]
+
+editor/display_folded = true
+motion_scale = Vector2( 1, 1 )
+motion_offset = Vector2( 0, 0 )
+motion_mirroring = Vector2( 40, 0 )
+_sections_unfolded = [ "Motion", "Transform" ]
+
+[node name="Sprite" type="Sprite" parent="background/ParallaxLayer" index="0"]
+
+texture = ExtResource( 2 )
+centered = false
+_sections_unfolded = [ "Animation", "Offset", "Transform" ]
+
+[node name="Sprite2" type="Sprite" parent="background/ParallaxLayer" index="1"]
+
+position = Vector2( 0, 4 )
+texture = ExtResource( 3 )
+centered = false
+_sections_unfolded = [ "Offset" ]
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="background" index="1"]
+
+editor/display_folded = true
+motion_scale = Vector2( 1.5, 1 )
+motion_offset = Vector2( 0, 0 )
+motion_mirroring = Vector2( 40, 0 )
+_sections_unfolded = [ "Motion", "Transform" ]
+
+[node name="Sprite3" type="Sprite" parent="background/ParallaxLayer2" index="0"]
+
+position = Vector2( 0, 12 )
+texture = ExtResource( 4 )
+centered = false
+_sections_unfolded = [ "Offset" ]
+
+[node name="Sprite4" type="Sprite" parent="background/ParallaxLayer2" index="1"]
+
+position = Vector2( 0, 19 )
+texture = ExtResource( 5 )
+centered = false
+_sections_unfolded = [ "Offset" ]
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="background" index="2"]
+
+editor/display_folded = true
+motion_scale = Vector2( 2, 1 )
+motion_offset = Vector2( 0, 0 )
+motion_mirroring = Vector2( 40, 0 )
+_sections_unfolded = [ "Motion", "Transform" ]
+
+[node name="Sprite5" type="Sprite" parent="background/ParallaxLayer3" index="0"]
+
+position = Vector2( 0, 43 )
+texture = ExtResource( 6 )
+centered = false
+_sections_unfolded = [ "Offset" ]
+
+[node name="Sprite6" type="Sprite" parent="background/ParallaxLayer3" index="1"]
+
+position = Vector2( 0, 48 )
+texture = ExtResource( 7 )
+centered = false
+_sections_unfolded = [ "Offset" ]
+
+[node name="Sprite7" type="Sprite" parent="background/ParallaxLayer3" index="2"]
+
+position = Vector2( 0, 50 )
+texture = ExtResource( 8 )
+centered = false
+_sections_unfolded = [ "Offset" ]
+
+[node name="Sprite2" type="Sprite" parent="background/ParallaxLayer3" index="3"]
+
+position = Vector2( 30.6588, 31.2428 )
+texture = ExtResource( 9 )
+
+[node name="Sprite3" type="Sprite" parent="background/ParallaxLayer3" index="4"]
+
+position = Vector2( 9.92762, 14.5994 )
+texture = ExtResource( 10 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="background" index="3"]
+
+editor/display_folded = true
+motion_scale = Vector2( 2.5, 1 )
+motion_offset = Vector2( 0, 0 )
+motion_mirroring = Vector2( 42, 0 )
+_sections_unfolded = [ "Motion" ]
+
+[node name="Sprite" type="Sprite" parent="background/ParallaxLayer4" index="0"]
+
+position = Vector2( 0, 63 )
+texture = ExtResource( 11 )
+centered = false
+_sections_unfolded = [ "Offset" ]
+
+[node name="Sprite2" type="Sprite" parent="background/ParallaxLayer4" index="1"]
+
+position = Vector2( 28, 56 )
+texture = ExtResource( 12 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Sprite3" type="Sprite" parent="background/ParallaxLayer4" index="2"]
+
+position = Vector2( 7, 57 )
+texture = ExtResource( 13 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="suelo" type="StaticBody2D" parent="." index="1"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Pause" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="suelo" index="0"]
+
+position = Vector2( 20, 67 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="suelo" index="1"]
+
+position = Vector2( 20, -4 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="panel" parent="." index="2" instance=ExtResource( 14 )]
+
+position = Vector2( 20, 40 )
+
+[node name="puntaje" type="Sprite" parent="." index="3"]
+
+editor/display_folded = true
+z_index = 11
+_sections_unfolded = [ "Z Index" ]
+
+[node name="puntaje" type="Label" parent="puntaje" index="0"]
+
+pause_mode = 2
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 1, 0, 1 )
+text = "0"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Pause", "custom_colors", "custom_fonts" ]
+
+[node name="titulo" type="Label" parent="puntaje" index="1"]
+
+pause_mode = 2
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.976471, 0.227451, 0.109804, 1 )
+custom_colors/font_color_shadow = Color( 0.407843, 0.2, 0.0666667, 1 )
+text = "FLAPPY"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Pause", "custom_colors", "custom_fonts" ]
+
+[node name="titulo2" type="Label" parent="puntaje" index="2"]
+
+pause_mode = 2
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 10.0
+margin_right = 40.0
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 0.227451, 0.109804, 1 )
+custom_colors/font_color_shadow = Color( 0.407843, 0.2, 0.0666667, 1 )
+text = "BIT"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Pause", "custom_colors", "custom_fonts" ]
+
+[node name="sonidoPunto" type="AudioStreamPlayer" parent="." index="4"]
+
+stream = ExtResource( 15 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+
