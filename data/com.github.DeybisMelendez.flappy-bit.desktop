@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Flappy Bit
+GenericName=Flappy Bit Game
+Comment=Made with Godot 3
+Categories=Games
+Exec=Flappy.x86_64
+Icon=https://github.com/DeybisMelendez/flappy-bit/blob/master/icon.png
+Terminal=false
+Type=Application
+Keywords=Flappy;Bit;

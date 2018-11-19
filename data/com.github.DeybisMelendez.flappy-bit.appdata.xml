@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2018 Deybis Melendez <pixelweb2007@gmail.com> -->
+<component type="desktop">
+  <id>com.github.DeybisMelendez.flappy-bit</id>
+  <name>Flappy Bit</name>
+  <summary>A simple Flappy Bird pixeled version.</summary>
+  <description>
+    <p>A simple Flappy Bird pixeled version.</p>
+  </description>
+</component>
